@@ -3,9 +3,31 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title>frontend</title>
+    <title></title>
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="telephone=no,email=no" name="format-detection">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-orientation" content="portrait">
+    <script type="text/javascript">
+      !function(){
+          function a(){
+              if(parseInt(document.documentElement.clientWidth) > 768) {
+                  document.documentElement.style.fontSize=768/750*10/16*1000+"%";
+              } else {
+                  document.documentElement.style.fontSize=document.documentElement.clientWidth/750*10/16*1000+"%";
+              }
+          }
+          var b=null;
+          window.addEventListener("resize",function(){
+              clearTimeout(b);
+              b=setTimeout(a,300);
+          },!1);
+          a();
+      }(window);
+    </script>
   </head>
   <body>
     <noscript>
@@ -13,5 +35,16 @@
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+    <script>
+      window.shareConfig = {
+        title: '',
+        desc: '',
+        timeline_title: '',
+        imagePath: './assets/share.png',
+        url: window.location.href.split('#')[0],
+        successCb: () => {},
+      }
+    </script>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
   </body>
 </html>
