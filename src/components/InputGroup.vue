@@ -26,6 +26,7 @@ export default {
   .tlt {
     font-size: .3rem;
     color: #212121;
+    font-weight: bold;
   }
   .input {
     width: 6.38rem;
