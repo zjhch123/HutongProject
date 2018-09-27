@@ -55,9 +55,17 @@ export default {
     text-align: left;
   }
   .m-img {
+    width: 2.7rem;
+    height: 1.5rem;
+    overflow: hidden;
+    position: relative;
+    display: block;
     .u-img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       width: 2.7rem;
-      height: 1.5rem;
       display: block;
     }
   }

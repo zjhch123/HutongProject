@@ -33,7 +33,6 @@ export default {
       swiperLoaded: false,
       swiperNews: [],
       swiperOptions: {
-        width: window.innerWidth,
         autoplay: {
           delay: 8000,
         },
@@ -127,14 +126,20 @@ export default {
 .m-swiper {
   display: block;
   height: 4.2rem;
+  font-size: 0;
   .u-slide {
     width: 7.5rem;
     height: 4.2rem;
     display: block;
+    position: relative;
+    overflow: hidden;
     .img {
       display: block;
       width: 7.5rem;
-      height: 4.2rem;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
     }
   }
 }
