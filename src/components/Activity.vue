@@ -49,9 +49,13 @@ export default {
     height: 3.8rem;
     border-radius: .16rem;
     overflow: hidden;
+    position: relative;
     .u-img {
       width: 6.75rem;
-      height: 3.8rem;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
       display: block;
     }
   }
