@@ -37,6 +37,7 @@ export default {
     clickItem(item) {
       if (this.selected === item) {
         this.selected = ''
+        this.$emit('input', this.selected)
         return
       }
       this.selected = item
