@@ -52,7 +52,7 @@ class Wechat {
     signature,
   }) {
     window.wx.config({
-      debug: true,
+      debug: false,
       appId,
       timestamp,
       nonceStr,

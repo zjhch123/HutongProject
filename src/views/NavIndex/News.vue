@@ -33,6 +33,7 @@ export default {
       swiperLoaded: false,
       swiperNews: [],
       swiperOptions: {
+        width: window.innerWidth,
         autoplay: {
           delay: 8000,
         },

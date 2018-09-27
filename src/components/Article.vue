@@ -10,17 +10,23 @@
         <span>{{article.title}}</span>
       </div>
       <div class="m-time">
-        <span>{{article.posted_at}}</span>
+        <span>{{ formatDate(article.posted_at) }}</span>
       </div>
     </div>
   </a>
 </template>
 <script>
+import utils from '../lib/utils.js'
 export default {
   name: 'Article',
   props: {
     article: {
       type: Object,
+    }
+  },
+  methods: {
+    formatDate(s) {
+      return utils.formatDate(s)
     }
   }
 }

@@ -12,7 +12,7 @@
       </div>
     </div>
     <notifications></notifications>
-    <BottomButton>
+    <BottomButton :showBack="false">
       <a href="javascript:;" class="u-submit" @click="this.confirm">CONFIRM</a>
     </BottomButton>
   </div>
@@ -64,7 +64,7 @@ export default {
         desc: detail.shareDesc,
         timeline_title: detail.shareTimeline,
         url: window.location.href.split('#')[0] + `#/act/${this.id}`,
-        imagePath: (window.location.host + detail.shareImage).replace('https:', 'http:'),
+        imagePath: 'http://' + window.location.host + detail.shareImage,
         successCb: () => {}
       }
       window.resetShareConfig()
@@ -159,7 +159,6 @@ export default {
 <style lang="scss" scoped>
 .p-actSubmit {
   min-height: 100vh;
-  min-width: 100vw;
   background: white;
   padding: .1rem .5rem 1.4rem;
   box-sizing: border-box;

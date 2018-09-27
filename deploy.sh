@@ -1,7 +1,7 @@
 npm run build
 cd dist
 zip -r dist.zip ./*
-scp dist.zip root@	:/root/
+scp dist.zip root@47.98.157.41:/root/
 ssh root@47.98.157.41 '
   cd /root && 
   mv dist.zip /var/node_server/Hutong/app/public/ && 

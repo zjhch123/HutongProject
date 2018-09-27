@@ -24,7 +24,7 @@ export default {
       desc: detail.shareDesc,
       timeline_title: detail.shareTimeline,
       url: window.location.href.split('#')[0] + `#/act/${this.id}`,
-      imagePath: (window.location.host + detail.shareImage).replace('https:', 'http:'),
+      imagePath: 'http://' + window.location.host + detail.shareImage,
       successCb: () => {}
     }
     window.resetShareConfig()

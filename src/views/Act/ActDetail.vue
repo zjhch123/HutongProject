@@ -1,5 +1,6 @@
 <template>
   <div class="p-actDetail">
+    <img v-if="!!content" :src="tlt" class="u-tlt"/>
     <img v-if="!!content" :src="content" class="u-act"/>
     <BottomButton>
       <router-link :to="`/act/${id}/submit`" class="u-submit">SIGN UP NOW</router-link>
@@ -15,6 +16,7 @@ export default {
   data() {
     return {
       id: 0,
+      tlt: null,
       content: null,
     }
   },
@@ -30,12 +32,13 @@ export default {
       }
       const detail = ret.content.ActivityDetail
       this.content = detail.content
+      this.tlt = ret.content.descImage
       window.shareConfig = {
         title: detail.shareTitle,
         desc: detail.shareDesc,
         timeline_title: detail.shareTimeline,
         url: window.location.href,
-        imagePath: (window.location.host + detail.shareImage).replace('https:', 'http:'),
+        imagePath: 'http://' + window.location.host + detail.shareImage,
         successCb: () => {}
       }
       window.resetShareConfig()
@@ -51,9 +54,18 @@ export default {
   min-height: 100vh;
   min-width: 100vw;
   background: white;
-  padding-bottom: 1.4rem;
+  padding-bottom: .7rem;
   box-sizing: border-box;
+  .u-tlt {
+    width: 7.5rem;
+    display: block;
+  }
   .u-act {
+    position: relative;
+    top: -.2rem;
+    overflow: hidden;
+    border-top-left-radius: .2rem;
+    border-top-right-radius: .2rem;
     width: 7.5rem;
     display: block;
   }
