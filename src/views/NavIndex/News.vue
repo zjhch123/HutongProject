@@ -1,24 +1,17 @@
 <template>
   <div class="p-news">
     <div class="m-swiper">
-      <swiper :options="swiperOptions" ref="swiper">
-        <swiper-slide v-for="item in swipers" :key="item.id">
+      <swiper v-if="swiperLoaded" :options="swiperOptions" ref="swiper">
+        <swiper-slide v-for="item in swiperNews" :key="item.id">
           <a :href="item.link" class="u-slide">
-            <img :src="item.image" class="img" />
+            <img :src="item.swiperImage" class="img" />
           </a>
         </swiper-slide>
         <div class="swiper-pagination" slot="pagination"></div>
       </swiper>
     </div>
     <div class="m-list">
-      <Article />
-      <Article />
-      <Article />
-      <Article />
-      <Article />
-      <Article />
-      <Article />
-      <Article />
+      <Article v-for="item in news" :key="item.id" :article="item"/>
     </div>
   </div>
 </template>
@@ -28,30 +21,77 @@
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import Article from '@/components/Article'
+import utils from '../../lib/utils'
+import { getNews, getSwiperNews } from '../../api'
 export default {
   name: 'News',
   data() {
     return {
+      page: 1,
+      totalPage: 1,
+      news: [],
+      swiperLoaded: false,
+      swiperNews: [],
       swiperOptions: {
-        autoplay: true,
+        autoplay: {
+          delay: 8000,
+        },
         loop: true,
-        delay: 6000,
         pagination: {
           el: '.swiper-pagination'
         }
       },
-      swipers: [
-        {
-          id: 1,
-          image: require('@/assets/demo/swiper1.png'),
-          link: 'https://you.163.com'
-        },
-        {
-          id: 2,
-          image: require('@/assets/demo/swiper2.png'),
-          link: 'https://blog.hduzplus.xyz'
-        },
+      scrollFunc: null
+    }
+  },
+  computed: {
+      swiper() {
+        return this.$refs.swiper.swiper
+      }
+  },
+  mounted() {
+    this.launch()
+    this.scrollFunc = utils.debounce(this.onScroll, 200).bind(this)
+    document.addEventListener('scroll', this.scrollFunc)
+  },
+  beforeDestroy() {
+    document.removeEventListener('scroll', this.scrollFunc)
+  },
+  methods: {
+    launch() {
+      this.getNews()
+      this.getSwiperNews()
+    },
+    async getNews(page = 1) {
+      const {
+        code,
+        content
+      } = await getNews(page)
+      if (code !== 200) {
+        // TODO error
+      }
+      this.page = content.page
+      this.totalPage = content.totalPage
+      this.news = [
+        ...this.news,
+        ...content.list,
       ]
+    },
+    async getSwiperNews() {
+      const {
+        code,
+        content
+      } = await getSwiperNews()
+      if (code !== 200) {
+        // TODO error
+      }
+      this.swiperNews = content
+      this.swiperLoaded = true //swiper加载完毕，标志位设为true。如果不这么做，loop会失效
+    },
+    onScroll() {
+      if (window.scrollY > document.documentElement.clientHeight * 0.7 && this.page < this.totalPage) {
+        this.getNews(this.page + 1)
+      }
     }
   },
   components: {
@@ -85,6 +125,7 @@ export default {
 <style lang="scss" scoped>
 .m-swiper {
   display: block;
+  height: 4.2rem;
   .u-slide {
     width: 7.5rem;
     height: 4.2rem;

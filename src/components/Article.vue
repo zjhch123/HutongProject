@@ -1,25 +1,27 @@
 <template>
-  <div class="c-article">
+  <a :href="article.link" class="c-article">
     <div class="g-left">
       <a href="javascript:;" class="m-img">
-        <img :src="require('@/assets/demo/swiper1.png')" class="u-img" />
+        <img :src="article.descImage" class="u-img" />
       </a>
     </div>
     <div class="g-right">
       <div class="m-tlt">
-        <span>Netease 6.18, Beautiful Life you me it.Beautiful Life you me it.Beautiful Life you me it.Beautiful Life you me it.</span>
+        <span>{{article.title}}</span>
       </div>
       <div class="m-time">
-        <span>16:30</span>
+        <span>{{article.posted_at}}</span>
       </div>
     </div>
-  </div>
+  </a>
 </template>
-
 <script>
 export default {
   name: 'Article',
   props: {
+    article: {
+      type: Object,
+    }
   }
 }
 </script>

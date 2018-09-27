@@ -1,6 +1,18 @@
 class Wechat {
   constructor() {
+    window.setDetaultShareConfig = this.setDetaultShareConfig.bind(this)
     window.resetShareConfig = this.resetShareConfig.bind(this)
+  }
+
+  setDetaultShareConfig() {
+    window.shareConfig = {
+      title: '默认分享title',
+      desc: '默认分享desc',
+      timeline_title: '默认分享timeline',
+      imagePath: `http://${window.location.host}/upload/1.png`,
+      url: window.location.href.split('#')[0],
+    }
+    window.resetShareConfig()
   }
 
   resetShareConfig() {
@@ -40,7 +52,7 @@ class Wechat {
     signature,
   }) {
     window.wx.config({
-      debug: false,
+      debug: true,
       appId,
       timestamp,
       nonceStr,

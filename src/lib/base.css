@@ -36,3 +36,7 @@ html { font-size: 14px; }
 input:-moz-placeholder { color: #aaa; }
 *:not(input, textarea) { -webkit-user-select: none; }
 .f-hide {display: none !important;}
+.vue-notifyjs .alert[data-notify="container"] {
+  width: 6rem;
+  font-size: .32rem;
+}

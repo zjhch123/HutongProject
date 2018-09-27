@@ -6,6 +6,7 @@ import Acts from '@/views/NavIndex/Acts'
 import More from '@/views/NavIndex/More'
 import ActDetail from '@/views/Act/ActDetail'
 import ActSubmit from '@/views/Act/ActSubmit'
+import ActSubmitSubmit from '@/views/Act/ActSubmitSubmit'
 
 Vue.use(Router)
 
@@ -42,6 +43,11 @@ export default new Router({
       path: '/act/:id/submit',
       name: 'ActSubmit',
       component: ActSubmit,
+    },
+    {
+      path: '/act/:id/submit/success',
+      name: 'ActSubmitSubmit',
+      component: ActSubmitSubmit,
     },
   ]
 })

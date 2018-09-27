@@ -1,17 +1,17 @@
 <template>
-  <router-link to="/act/1" class="c-activity">
+  <router-link :to="`/act/${activity.id}`" class="c-activity">
     <div class="m-image">
-      <img :src="require('@/assets/demo/swiper1.png')" class="u-img" />
+      <img :src="activity.descImage" class="u-img" />
     </div>
     <div class="m-info">
       <div class="u-tlt">
-        <span>Visit HangZhou West Lake ！</span>
+        <span>{{activity.title}}</span>
       </div>
       <div class="u-other">
         <img :src="require('@/assets/time.png')" class="icon" />
-        <span class="time">9.30</span>
+        <span class="time">{{activity.startTime}}</span>
         <img :src="require('@/assets/position.png')" class="icon" />
-        <span class="position">West Lake, HangZhou</span>
+        <span class="position">{{activity.position}}</span>
       </div>
     </div>
   </router-link>
@@ -20,6 +20,9 @@
 export default {
   name: 'Activity',
   props: {
+    activity: {
+      type: Object
+    }
   }
 }
 </script>
