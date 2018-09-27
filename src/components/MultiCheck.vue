@@ -38,7 +38,7 @@ export default {
           ...this.selected.slice(index + 1)
         ]
       }
-      this.$emit('input', this.selected.join(','))
+      this.$emit('input', this.selected.join(', '))
     }
   },
   components: {

@@ -34,7 +34,7 @@ export default {
     handleInput(e) {
       const index = +e.target.getAttribute('data-index')
       this.inputValue[index] = e.target.value
-      this.$emit('input', this.inputValue.join(','))
+      this.$emit('input', this.inputValue.join(', '))
     },
     addInput() {
       this.inputValue.push('')
@@ -47,7 +47,7 @@ export default {
         ...this.inputValue.slice(0, index),
         ...this.inputValue.slice(index + 1)
       ]
-      this.$emit('input', this.inputValue.join(','))
+      this.$emit('input', this.inputValue.join(', '))
     }
   }
 }
