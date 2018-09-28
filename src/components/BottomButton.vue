@@ -31,6 +31,8 @@ export default {
   max-width: 7.5rem;
   margin: auto;
   .u-goBack {
+    border-top: 1px solid #ebebeb;
+    box-sizing: border-box;
     width: 2rem;
     color: #cb0000;
     background: white;

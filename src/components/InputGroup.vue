@@ -1,5 +1,5 @@
 <template>
-  <div class="c-input-group">
+  <div class="c-input-group" :style="styles">
     <div class="u-tlt">
       <span class="tlt">{{title}}</span>
     </div>
@@ -16,6 +16,11 @@
 export default {
   name: 'InputGroup',
   props: {
+    styles: {
+      type: Object,
+      required: false,
+      default: () => ({}),
+    },
     title: {
       type: String,
       required: true
@@ -23,6 +28,14 @@ export default {
     canAdd: {
       type: Boolean,
       default: false
+    },
+    value: String
+  },
+  watch: {
+    value(newVal) {
+      if (newVal === '') {
+        this.inputValue = this.inputValue.map(() => '')
+      }
     }
   },
   data() {
@@ -40,7 +53,7 @@ export default {
       this.inputValue.push('')
     },
     handleCutInput(index) {
-      if (index === 0) {
+      if (index === 0) { // 初始Input不能被cut
         return
       }
       this.inputValue = [
@@ -56,6 +69,10 @@ export default {
 .c-input-group {
   margin-top: .6rem;
   text-align: left;
+  .u-tlt {
+    width: 6.5rem;
+    margin: auto;
+  }
   .tlt {
     font-size: .3rem;
     color: #212121;

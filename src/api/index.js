@@ -31,3 +31,20 @@ export function submitAct(data) {
     credentials: 'include',
   }).then(res => res.json())
 }
+
+export function comment(data) {
+  return fetch('/api/acts/comment', {
+    method: 'POST',
+    headers: {
+      'x-csrf-token': Cookie.get('csrfToken'),
+      'Content-Type': 'application/json; charset=utf-8'
+    },
+    body: JSON.stringify(data),
+    credentials: 'include',
+  }).then(res => res.json())
+}
+
+export function getComments(id) {
+  return fetch(`/api/acts/getComments?id=${id}`)
+          .then(res => res.json())
+}

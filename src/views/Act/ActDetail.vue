@@ -1,7 +1,24 @@
 <template>
   <div class="p-actDetail">
-    <img v-if="!!content" :src="tlt" class="u-tlt"/>
-    <img v-if="!!content" :src="content" class="u-act"/>
+    <div class="m-main">
+      <img v-if="!!content" :src="tlt" class="u-tlt"/>
+      <img v-if="!!content" :src="content" class="u-act"/>
+    </div>
+    <div class="m-comment-list" v-if="comments.length > 0">
+      <h2 class="u-subTlt">COMMENTS</h2>
+      <div class="m-list">
+        <ActivityComment v-for="(item, index) in comments" :key="index" :comment="item"/>
+      </div>
+    </div>
+    <div class="m-post-comment">
+      <h2 class="u-subTlt">ADD COMMENT</h2>
+      <InputGroup title="NAME*" :styles="{'margin-top': '.14rem'}" v-model="form.name" />
+      <TextareaGroup title="CONTENT*" :styles="{'margin-top': '.2rem'}" v-model="form.content" />
+      <InputGroup title="VERIFYCODE*" :styles="{'margin-top': '.2rem'}" v-model="form.verifyCode" />
+      <div class="m-btn">
+        <a href="javascript:;" class="u-btn" @click="submitForm">SUBMIT</a> <img :src="verifyUrl" class="u-verify" @click="refreshVerifyCode"/>
+      </div>
+    </div>
     <BottomButton>
       <router-link :to="`/act/${id}/submit`" class="u-submit">SIGN UP NOW</router-link>
     </BottomButton>
@@ -9,8 +26,11 @@
 </template>
 
 <script>
+import InputGroup from '@/components/InputGroup'
+import TextareaGroup from '@/components/TextareaGroup'
+import ActivityComment from '@/components/ActivityComment'
 import BottomButton from '@/components/BottomButton'
-import { getActDetail } from '../../api'
+import { getActDetail, comment, getComments } from '../../api'
 export default {
   name: 'ActDetail',
   data() {
@@ -18,10 +38,18 @@ export default {
       id: 0,
       tlt: null,
       content: null,
+      comments: [],
+      verifyUrl: '/api/util/getVerifyCode',
+      form: {
+        name: '',
+        content: '',
+        verifyCode: '',
+      }
     }
   },
   mounted() {
     this.launch()
+    this.getComments()
   },
   methods: {
     async launch() {
@@ -42,19 +70,67 @@ export default {
         successCb: () => {}
       }
       window.resetShareConfig()
+    },
+    refreshVerifyCode() {
+      this.verifyUrl = `/api/util/getVerifyCode?id=${Math.random()}`
+    },
+    async getComments() {
+      const ret = await getComments(this.id)
+      this.comments = ret.content
+    },
+    async submitForm() {
+      const submit = {
+        ...this.form,
+        actId: this.id,
+      }
+      if (submit.name === '' || submit.content === '' || submit.verifyCode === '') {
+        this.$notify({
+          message: 'Please fill in the required information',
+          type: 'info'
+        })
+        return
+      }
+
+      const ret = await comment(submit)
+      if (ret.code !== 200) {
+        this.$notify({
+          message: `System error`,
+          type: 'warning'
+        })
+        return
+      }
+
+      if (ret.content === 0) {
+        this.$notify({
+          message: `Success! But your comment isn't shown until it is verified.`,
+          type: 'success'
+        });
+        this.form = {
+          name: '',
+          content: '',
+          verifyCode: '',
+        }
+        this.refreshVerifyCode()
+        this.getComments()
+      } else if (ret.content === -2) {
+        this.$notify({
+          message: `Verify Code Error`,
+          type: 'warning'
+        })
+        this.refreshVerifyCode()
+      }
     }
   },
   components: {
-    BottomButton
+    BottomButton, InputGroup, TextareaGroup, ActivityComment
   }
 }
 </script>
 <style lang="scss" scoped>
 .p-actDetail {
   min-height: 100vh;
-  min-width: 100vw;
   background: white;
-  padding-bottom: .7rem;
+  padding-bottom: 1rem;
   box-sizing: border-box;
   .u-tlt {
     width: 7.5rem;
@@ -74,6 +150,42 @@ export default {
     line-height: .9rem;
     color: white;
     display: block;
+  }
+}
+.u-subTlt {
+  font-size: .32rem;
+}
+.m-comment-list {
+  .m-list {
+    padding: .4rem 0;
+    .u-none {
+      font-size: .26rem;
+      font-weight: lighter;
+    }
+  }
+}
+.m-post-comment {
+  .m-btn {
+    width: 6.4rem;
+    margin: auto;
+    padding: .3rem 0;
+    display: flex;
+    .u-btn {
+      display: inline-block;
+      width: 3.18rem;
+      height: .7rem;
+      line-height: .7rem;
+      background: #CB0302;
+      color: white;
+      font-size: .3rem;
+      font-weight: bold;
+      border-radius: .04rem;
+    }
+    .u-verify {
+      margin-left: .4rem;
+      height: .7rem;
+      display: block;
+    }
   }
 }
 </style>

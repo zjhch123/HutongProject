@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import Notify from 'vue-notifyjs'
-import 'vue-notifyjs/themes/material.css'
+import Toasted from 'vue-toasted';
+
 import 'fetch-polyfill'
 import Wechat from './lib/share'
 import './lib/base.css'
@@ -15,12 +15,16 @@ router.afterEach(() => {
   window.setDetaultShareConfig()
 })
 
-Vue.use(Notify, {
-  type: 'primary', 
-  timeout: 2000,
-  horizontalAlign: 'center',
-  verticalAlign: 'top'
+Vue.use(Toasted, {
+  type: 'info', 
+  duration: 6000,
+  position: 'top-center',
+  fitToScreen: true
 })
+
+Vue.prototype.$notify = function ({message = '', type = 'info'}) {
+  this.$toasted.show(message, { type })
+}
 
 new Vue({
   router,

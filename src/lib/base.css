@@ -40,3 +40,14 @@ input:-moz-placeholder { color: #aaa; }
   width: 6rem;
   font-size: .32rem;
 }
+.toasted-container.top-center {
+  top: .2rem !important;
+}
+.toasted.primary {
+  padding: .1rem .5rem !important;
+}
+.toasted-container .toasted {
+  width: 6rem !important;
+  font-size: .28rem !important;
+  line-height: 1.41 !important;
+}
