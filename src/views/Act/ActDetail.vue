@@ -14,9 +14,12 @@
       <h2 class="u-subTlt">ADD COMMENT</h2>
       <InputGroup title="NAME*" :styles="{'margin-top': '.14rem'}" v-model="form.name" />
       <TextareaGroup title="CONTENT*" :styles="{'margin-top': '.2rem'}" v-model="form.content" />
-      <InputGroup title="VERIFYCODE*" :styles="{'margin-top': '.2rem'}" v-model="form.verifyCode" />
+      <VerifyInputGroup 
+        v-model="form.verifyCode" 
+        :refresh="refreshVerifyCode"
+        :verifyCodeURL='verifyUrl' />
       <div class="m-btn">
-        <a href="javascript:;" class="u-btn" @click="submitForm">SUBMIT</a> <img :src="verifyUrl" class="u-verify" @click="refreshVerifyCode"/>
+        <a href="javascript:;" class="u-btn" @click="submitForm">SUBMIT</a>
       </div>
     </div>
     <BottomButton>
@@ -30,6 +33,7 @@ import InputGroup from '@/components/InputGroup'
 import TextareaGroup from '@/components/TextareaGroup'
 import ActivityComment from '@/components/ActivityComment'
 import BottomButton from '@/components/BottomButton'
+import VerifyInputGroup from '@/components/VerifyInputGroup'
 import { getActDetail, comment, getComments } from '../../api'
 export default {
   name: 'ActDetail',
@@ -50,6 +54,7 @@ export default {
   mounted() {
     this.launch()
     this.getComments()
+    this.refreshVerifyCode()
   },
   methods: {
     async launch() {
@@ -118,11 +123,12 @@ export default {
           type: 'warning'
         })
         this.refreshVerifyCode()
+        this.form.verifyCode = ''
       }
     }
   },
   components: {
-    BottomButton, InputGroup, TextareaGroup, ActivityComment
+    BottomButton, InputGroup, TextareaGroup, ActivityComment, VerifyInputGroup
   }
 }
 </script>

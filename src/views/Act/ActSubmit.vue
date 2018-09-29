@@ -10,8 +10,11 @@
         <MultiCheck v-model="otherData[index]" v-if="item.type === 'multicheck'" :title="`${item.title}${item.must === '1' ? '*' : ''}`" :items="item.items" />
         <SingleCheck v-model="otherData[index]" v-if="item.type === 'singlecheck'" :title="`${item.title}${item.must === '1' ? '*' : ''}`" :items="item.items" />
       </div>
+      <VerifyInputGroup 
+        v-model="mainData.verifyCode" 
+        :refresh="refreshVerifyCode"
+        :verifyCodeURL='verifyUrl' />
     </div>
-    <notifications></notifications>
     <BottomButton :showBack="false">
       <a href="javascript:;" class="u-submit" @click="this.confirm">CONFIRM</a>
     </BottomButton>
@@ -22,28 +25,31 @@ import BottomButton from '@/components/BottomButton'
 import InputGroup from '@/components/InputGroup'
 import MultiCheck from '@/components/MultiCheck'
 import SingleCheck from '@/components/SingleCheck'
+import VerifyInputGroup from '@/components/VerifyInputGroup'
 import { getActDetail, submitAct } from '../../api'
 export default {
   name: 'ActSubmit',
   data() {
     return {
       content: {},
+      verifyUrl: '/api/util/getVerifyCode',
       submitConfig: [],
       mainData: {
         name: '',
         phone: '',
         wechat: '',
-        email: ''
+        email: '',
+        verifyCode: ''
       },
       otherData: [],
     }
   },
   components: {
-    BottomButton, InputGroup, MultiCheck, SingleCheck
+    BottomButton, InputGroup, MultiCheck, SingleCheck, VerifyInputGroup
   },
   mounted() {
     this.launch()
-    
+    this.refreshVerifyCode()
   },
   methods: {
     async launch() {
@@ -69,6 +75,9 @@ export default {
       }
       window.resetShareConfig()
     },
+    refreshVerifyCode() {
+      this.verifyUrl = '/api/util/getVerifyCode?id=' + Math.random();
+    },
     async confirm() {
       let flag = false
       if (this.mainData.name === '') {
@@ -81,6 +90,9 @@ export default {
         flag = true
       }
       if (this.mainData.email === '') {
+        flag = true
+      }
+      if (this.mainData.verifyCode === '') {
         flag = true
       }
       this.submitConfig.forEach((item, index) => {
@@ -145,6 +157,14 @@ export default {
             type: 'info'
           })
           break;
+        case -4:
+          this.$notify({
+            message: `Verify Code Error`,
+            type: 'warning'
+          })
+          this.mainData.verifyCode = ''
+          this.refreshVerifyCode()
+          break;
         default:
           this.$notify({
             message: `System error`,
@@ -166,6 +186,10 @@ export default {
     height: .9rem;
     line-height: .9rem;
     color: white;
+    display: block;
+  }
+  .u-verifyCode {
+    height: .8rem;
     display: block;
   }
 }
