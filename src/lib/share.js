@@ -6,10 +6,10 @@ class Wechat {
 
   setDetaultShareConfig() {
     window.shareConfig = {
-      title: '默认分享title',
-      desc: '默认分享desc',
-      timeline_title: '默认分享timeline',
-      imagePath: `http://${window.location.host}/upload/1.png`,
+      title: 'HutongSchool Hangzhou',
+      desc: '',
+      timeline_title: 'HutongSchool Hangzhou',
+      imagePath: `http://${window.location.host}/upload/1.jpg`,
       url: window.location.href.split('#')[0],
     }
     window.resetShareConfig()
