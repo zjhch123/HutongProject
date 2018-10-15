@@ -2,7 +2,13 @@
   <div class="p-actDetail">
     <div class="m-main">
       <img v-if="!!content" :src="tlt" class="u-tlt"/>
-      <img v-if="!!content" v-for="(item, index) in (content || '').split('|')" :key="index" :src="item" class="u-act"/>
+      <img 
+        v-if="!!content" 
+        v-for="(item, index) in (content || '').split('|')" 
+        :key="index" 
+        :src="item" 
+        class="u-act"
+        :class="index == 0 ? 'f-first' : ''"/>
     </div>
     <div class="m-comment-list" v-if="comments.length > 0">
       <h2 class="u-subTlt">COMMENTS</h2>
@@ -146,10 +152,12 @@ export default {
     position: relative;
     top: -.2rem;
     overflow: hidden;
-    border-top-left-radius: .2rem;
-    border-top-right-radius: .2rem;
     width: 7.5rem;
     display: block;
+    &.f-first {
+      border-top-left-radius: .2rem;
+      border-top-right-radius: .2rem;
+    }
   }
   .u-submit {
     height: .9rem;
