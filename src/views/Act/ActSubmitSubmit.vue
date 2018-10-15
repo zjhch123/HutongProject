@@ -1,8 +1,11 @@
 <template>
   <div class="p-actSubmitSuccess">
+    <div class="m-share" :class="showShare ? 'f-show' : ''" @click="showShare = false">
+      <img :src="require('@/assets/share_friends.png')" class="u-share" />
+    </div>
     <img :src="require('@/assets/success.png')" class="u-icon">
     <p class="u-text">SUCCESSFUL</p>
-    <a href="javascript:;" class="u-btn f-red">SHARE</a>
+    <a href="javascript:;" class="u-btn f-red" @click="showShare = true">SHARE</a>
     <router-link to='/acts' class="u-btn f-gray">HOME</router-link>
   </div>
 </template>
@@ -10,6 +13,11 @@
 import { getActDetail } from '../../api'
 export default {
   name: 'ActSubmitSuccess',
+  data() {
+    return {
+      showShare: false
+    }
+  },
   components: {
   },
   async mounted() {
@@ -36,6 +44,27 @@ export default {
 <style lang="scss" scoped>
 .p-actSubmitSuccess {
   background: white;
+  .m-share {
+    background: rgba(0,0,0,.3);
+    transition: opacity .4s;
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 3;
+    .u-share {
+      position: absolute;
+      width: 7rem;
+      right: 0;
+    }
+    &.f-show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
   .u-icon {
     width: 1.6rem;
     display: block;

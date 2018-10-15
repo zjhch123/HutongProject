@@ -7,7 +7,7 @@ class Wechat {
   setDetaultShareConfig() {
     window.shareConfig = {
       title: 'HutongSchool Hangzhou',
-      desc: '',
+      desc: 'Welcome to Hangzhou',
       timeline_title: 'HutongSchool Hangzhou',
       imagePath: `http://${window.location.host}/upload/1.jpg`,
       url: window.location.href.split('#')[0],
