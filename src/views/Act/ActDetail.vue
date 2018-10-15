@@ -2,7 +2,7 @@
   <div class="p-actDetail">
     <div class="m-main">
       <img v-if="!!content" :src="tlt" class="u-tlt"/>
-      <img v-if="!!content" :src="content" class="u-act"/>
+      <img v-if="!!content" v-for="(item, index) in (content || '').split('|')" :key="index" :src="item" class="u-act"/>
     </div>
     <div class="m-comment-list" v-if="comments.length > 0">
       <h2 class="u-subTlt">COMMENTS</h2>
