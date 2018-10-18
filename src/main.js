@@ -14,7 +14,7 @@ Vue.config.productionTip = false
 router.beforeEach((to, from, next) => {
   // 统计代码
   if (to.path && window._hmt) {
-    window._hmt.push(['_trackPageview', '/#' + to.fullPath]);
+    window._hmt.push(['_trackPageview', '/index.html#' + to.fullPath]);
   }
   next();
 });
