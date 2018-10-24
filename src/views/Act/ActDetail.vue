@@ -10,13 +10,14 @@
         class="u-act"
         :class="index == 0 ? 'f-first' : ''"/>
     </div>
-    <div class="m-comment-list" v-if="comments.length > 0">
+    <div class="m-comment-list" v-if="false">
+    <!-- <div class="m-comment-list" v-if="comments.length > 0"> -->
       <h2 class="u-subTlt">COMMENTS</h2>
       <div class="m-list">
         <ActivityComment v-for="(item, index) in comments" :key="index" :comment="item"/>
       </div>
     </div>
-    <div class="m-post-comment">
+    <div class="m-post-comment" v-if="false">
       <h2 class="u-subTlt">ADD COMMENT</h2>
       <InputGroup title="NAME*" :styles="{'margin-top': '.14rem'}" v-model="form.name" />
       <TextareaGroup title="CONTENT*" :styles="{'margin-top': '.2rem'}" v-model="form.content" />
