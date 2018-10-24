@@ -4,7 +4,8 @@
       <img :src="require('@/assets/share_friends.png')" class="u-share" />
     </div>
     <img :src="require('@/assets/success.png')" class="u-icon">
-    <p class="u-text">SUCCESSFUL</p>
+    <p class="u-text f-large">Thank you for signing up.</p>
+    <p class="u-text f-last">We will contact you soon to confirm your place!</p>
     <a href="javascript:;" class="u-btn f-red" @click="showShare = true">SHARE</a>
     <router-link to='/acts' class="u-btn f-gray">HOME</router-link>
   </div>
@@ -71,10 +72,16 @@ export default {
     margin: 3rem auto .3rem;
   }
   .u-text {
-    font-size: .38rem;
+    font-size: .28rem;
     color: #393939;
     text-align: center;
-    margin-bottom: 2rem;
+    &.f-large {
+      font-size: .4rem;
+      margin-bottom: .04rem;
+    }
+    &.f-last {
+      margin-bottom: 1rem;
+    }
   }
   .u-btn {
     width: 6.15rem;
