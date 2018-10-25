@@ -143,7 +143,6 @@ export default {
 .p-actDetail {
   min-height: 100vh;
   background: white;
-  padding-bottom: 1rem;
   box-sizing: border-box;
   .u-tlt {
     width: 7.5rem;

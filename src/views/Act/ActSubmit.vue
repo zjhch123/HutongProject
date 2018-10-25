@@ -180,7 +180,7 @@ export default {
 .p-actSubmit {
   min-height: 100vh;
   background: white;
-  padding: .1rem .5rem 1.4rem;
+  padding: .1rem .5rem .5rem;
   box-sizing: border-box;
   .u-submit {
     height: .9rem;
