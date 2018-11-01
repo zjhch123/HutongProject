@@ -29,8 +29,9 @@
         <a href="javascript:;" class="u-btn" @click="submitForm">SUBMIT</a>
       </div>
     </div>
-    <BottomButton>
-      <router-link :to="`/act/${id}/submit`" class="u-submit">SIGN UP NOW</router-link>
+    <BottomButton :bgColor="closing === false ? '#cb0000' : '#9c9c9c'">
+      <router-link v-if="closing === false" :to="`/act/${id}/submit`" class="u-submit">SIGN UP NOW</router-link>
+      <a href="javascript:;" v-if="closing === true" class="u-submit f-close">Closing</a>
     </BottomButton>
   </div>
 </template>
@@ -51,6 +52,7 @@ export default {
       content: null,
       comments: [],
       verifyUrl: '/api/util/getVerifyCode',
+      closing: false,
       form: {
         name: '',
         content: '',
@@ -71,8 +73,10 @@ export default {
         // TODO error
       }
       const detail = ret.content.ActivityDetail
+      const endTime = ret.content.submitEndTime
       this.content = detail.content
       this.tlt = ret.content.descImage
+      this.closing = new Date(endTime).getTime() <= new Date().getTime()
       window.shareConfig = {
         title: detail.shareTitle,
         desc: detail.shareDesc,

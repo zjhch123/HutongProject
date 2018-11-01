@@ -1,6 +1,6 @@
 <template>
   <div class="c-bottomButton">
-    <div class="m-container">
+    <div class="m-container" :style="{backgroundColor: bgColor}">
       <router-link v-if="showBack" to="/acts" class="u-goBack">BACK</router-link>
       <div class="u-other">
         <slot></slot>
@@ -11,6 +11,10 @@
 <script>
 export default {
   props: {
+    bgColor: {
+      type: String,
+      default: '#cb0000'
+    },
     showBack: {
       type: Boolean,
       default: true,
@@ -40,7 +44,6 @@ export default {
   .m-container {
     height: .9rem;
     line-height: .9rem;
-    background: #cb0000;
     font-size: .34rem;
     font-weight: bold;
     display: flex;
