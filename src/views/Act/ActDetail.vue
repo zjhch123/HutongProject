@@ -31,7 +31,7 @@
     </div>
     <BottomButton :bgColor="closing === false ? '#cb0000' : '#9c9c9c'">
       <router-link v-if="closing === false" :to="`/act/${id}/submit`" class="u-submit">SIGN UP NOW</router-link>
-      <a href="javascript:;" v-if="closing === true" class="u-submit f-close">Closing</a>
+      <a href="javascript:;" v-if="closing === true" class="u-submit f-close">CLOSED</a>
     </BottomButton>
   </div>
 </template>
