@@ -3,8 +3,8 @@
     <div class="m-main">
       <InputGroup v-model="mainData.name" title="NAME*" :canAdd="true" />
       <InputGroup v-model="mainData.phone" title="PHONE*" />
-      <InputGroup v-model="mainData.wechat" title="WECHAT*" />
-      <InputGroup v-model="mainData.email" title="EMAIL*" />
+      <!-- <InputGroup v-model="mainData.wechat" title="WECHAT*" />
+      <InputGroup v-model="mainData.email" title="EMAIL*" /> -->
       <div v-for="(item, index) in submitConfig" :key="index">
         <InputGroup v-model="otherData[index]" v-if="item.type === 'input'" :title="`${item.title}${item.must === '1' ? '*' : ''}`" />
         <MultiCheck v-model="otherData[index]" v-if="item.type === 'multicheck'" :title="`${item.title}${item.must === '1' ? '*' : ''}`" :items="item.items" />
@@ -37,8 +37,8 @@ export default {
       mainData: {
         name: '',
         phone: '',
-        wechat: '',
-        email: '',
+        // wechat: '',
+        // email: '',
         verifyCode: ''
       },
       otherData: [],
@@ -84,12 +84,6 @@ export default {
         flag = true
       }
       if (this.mainData.phone === '') {
-        flag = true
-      }
-      if (this.mainData.wechat === '') {
-        flag = true
-      }
-      if (this.mainData.email === '') {
         flag = true
       }
       if (this.mainData.verifyCode === '') {
