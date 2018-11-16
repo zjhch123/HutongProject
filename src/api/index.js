@@ -1,23 +1,52 @@
 import Cookie from 'js-cookie'
 
+const mem = (() => {
+  const map = {}
+  return {
+    push(k, v) {
+      if (map[k]) {
+        return
+      }
+      map[k] = v
+      setTimeout(() => {
+        delete map[k]
+      }, 10000)
+    },
+    get(k) {
+      return map[k]
+    }
+  }
+})()
+
+const memFetch = (url) => {
+  const memValue = mem.get(url)
+  if (typeof memValue !== 'undefined' && memValue !== null) {
+    return new Promise((resolve) => {
+      resolve(memValue)
+    })
+  } else {
+    return fetch(url).then((res) => {
+      const json = res.json()
+      mem.push(url, json)
+      return json
+    })
+  }
+}
+
 export function getNews(page) {
-  return fetch(`/api/news/getNews?page=${page}`)
-          .then(res => res.json())
+  return memFetch(`/api/news/getNews?page=${page}`)
 }
 
 export function getSwiperNews() {
-  return fetch(`/api/news/getSwiperNews`)
-          .then(res => res.json())
+  return memFetch(`/api/news/getSwiperNews`)
 }
 
 export function getActs(page) {
-  return fetch(`/api/acts/getActs?page=${page}`)
-          .then(res => res.json())
+  return memFetch(`/api/acts/getActs?page=${page}`)
 }
 
 export function getActDetail(id) {
-  return fetch(`/api/acts/getActDetail?id=${id}`)
-          .then(res => res.json())
+  return memFetch(`/api/acts/getActDetail?id=${id}`)
 }
 
 export function submitAct(data) {
@@ -45,6 +74,5 @@ export function comment(data) {
 }
 
 export function getComments(id) {
-  return fetch(`/api/acts/getComments?id=${id}`)
-          .then(res => res.json())
+  return memFetch(`/api/acts/getComments?id=${id}`)
 }

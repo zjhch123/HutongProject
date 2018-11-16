@@ -143,12 +143,4 @@ export default {
     }
   }
 }
-.m-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  max-width: 7.5rem;
-  margin: auto;
-}
 </style>
