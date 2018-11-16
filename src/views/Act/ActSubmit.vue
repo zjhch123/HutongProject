@@ -42,6 +42,7 @@ export default {
         verifyCode: ''
       },
       otherData: [],
+      isConfirming: false,
     }
   },
   components: {
@@ -78,7 +79,17 @@ export default {
     refreshVerifyCode() {
       this.verifyUrl = '/api/util/getVerifyCode?id=' + Math.random();
     },
+    setIsConfirming() {
+      this.isConfirming = true
+      setTimeout(() => {
+        this.isConfirming = false
+      }, 2000)
+    },
     async confirm() {
+      if (this.isConfirming) {
+        return
+      }
+      this.setIsConfirming()
       let flag = false
       if (this.mainData.name === '') {
         flag = true
