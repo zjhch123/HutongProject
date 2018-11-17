@@ -64,9 +64,6 @@ export default {
     this.launch()
     this.getComments()
     this.refreshVerifyCode()
-    setTimeout(() => {
-      window.scrollTo(0, 0)
-    }, 600)
   },
   methods: {
     async launch() {

@@ -16,11 +16,12 @@ export default {
   },
   watch: {
     '$route' (to, from) {
+      window.scrollTo(0, 0)
       const toDep = to.path.split('/').length
       const fromDep = from.path.split('/').length
       if (toDep > fromDep) {
         this.transitionName = 'slide-right'
-        this.mode = 'in-out'
+        this.mode = ''
       }
       if (toDep === fromDep) {
         this.transitionName = ''
@@ -52,8 +53,22 @@ export default {
 .slide-right-enter-to {
   opacity: 1;
 }
-.slide-right-leave, .slide-right-leave-active, .slide-right-leave-to {
-  display: none;
+.slide-right-leave {
+  position: fixed;
+  top: 0;
+  width: 7.5rem;
+  height: 100vh;
+  opacity: 0;
+}
+.slide-right-leave-active {
+  position: fixed;
+  top: 0;
+  width: 7.5rem;
+  height: 100vh;
+  transition: all .6s;
+}
+.slide-right-leave-to {
+  opacity: 0;
 }
 
 .slide-left-enter {
