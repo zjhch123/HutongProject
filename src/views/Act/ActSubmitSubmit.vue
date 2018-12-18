@@ -5,7 +5,6 @@
     </div>
     <img :src="require('@/assets/success.png')" class="u-icon">
     <p class="u-text f-large">Thank you for signing up.</p>
-    <p class="u-text f-last">We will contact you soon to confirm your place!</p>
     <a href="javascript:;" class="u-btn f-red" @click="showShare = true">SHARE</a>
     <router-link to='/acts' class="u-btn f-gray">HOME</router-link>
   </div>
@@ -76,7 +75,7 @@ export default {
     color: #393939;
     text-align: center;
     &.f-large {
-      font-size: .4rem;
+      font-size: .5rem;
       margin-bottom: .04rem;
     }
     &.f-last {
