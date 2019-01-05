@@ -3,7 +3,7 @@
     <router-link class="u-tab" active-class="f-selected" to='/news'>
       <img :src="require('../assets/news.png')" class="u-img f-normal"/>
       <img :src="require('../assets/news_s.png')" class="u-img f-selected"/>
-      <span class="u-text">NEWS</span>
+      <span class="u-text">WEEKLY</span>
     </router-link>
     <router-link class="u-tab" active-class="f-selected" to='/acts'>
       <img :src="require('../assets/activities.png')" class="u-img f-normal"/>
